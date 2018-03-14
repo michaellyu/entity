@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo docker exec go-entity go test $1
