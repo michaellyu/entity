@@ -3,18 +3,30 @@ package entity_test
 import (
   "testing"
   "entity"
+  "time"
 )
 
 var data interface{} = map[string]interface{} {
-  "author": map[string]interface{} {
-    "id": 1,
-    "name": "Coral",
-    "children": [] int { 1, 2, 3 },
+  "name": "Team",
+  "city": map[string]interface{} {
+    "name": "Tianjin",
+  },
+  "members": []interface{} {
+    map[string]interface{} {
+      "name": "Coral",
+    },
+    map[string]interface{} {
+      "name": "Jack",
+    },
+    map[string]interface{} {
+      "name": "Xinxing",
+    },
   },
   "interface": 1,
   "map": map[string]interface{} { "map": 1 },
   "string": "string",
   "bool": true,
+  "time": time.Now(),
   "int": 1,
   "int8": int8(1),
   "int16": int16(1),
@@ -49,171 +61,185 @@ var data interface{} = map[string]interface{} {
 }
 
 func TestAll(t *testing.T) {
-  entity := entity.NewEntity(&data)
-  authorName, err := entity.GetString("author.name")
+  team := entity.NewEntity(&data)
+  name, err := team.GetString("name")
   if err != nil {
-    t.Error("author.name not found")
+    t.Error("name not found")
   }
-  t.Log("author.name:", authorName)
-  firstChild, err := entity.GetInt("author.children[0]")
+  t.Log("name:", name)
+  cityName, err := team.GetString("city.name")
   if err != nil {
-    t.Error("author.children[0] not found")
+    t.Error("city.name not found")
   }
-  t.Log("author.children[0]:", firstChild)
-  children, err := entity.GetArrayInt("author.children")
+  t.Log("city.name:", cityName)
+  firstMember, err := team.GetMap("members[0]")
   if err != nil {
-    t.Error("author.children not found")
+    t.Error("members[0] not found")
   }
-  t.Log("author.children:", children)
-  _, err = entity.Get("interface")
+  t.Log("members[0]:", firstMember)
+  members, err := team.GetArray("members")
+  if err != nil {
+    t.Error("members not found")
+  }
+  t.Log("members:", members)
+  _, err = team.Get("interface")
   if err != nil {
     t.Error("Bad Get")
   }
-  _, err = entity.Field("interface")
+  _, err = team.GetField("interface")
   if err != nil {
     t.Error("Bad Field")
   }
-  _, err = entity.GetMap("map")
+  _, err = team.GetMap("map")
   if err != nil {
     t.Error("Bad GetMap")
   }
-  _, err = entity.GetString("string")
+  _, err = team.GetString("string")
   if err != nil {
     t.Error("Bad GetString")
   }
-  _, err = entity.GetBool("bool")
+  _, err = team.GetBool("bool")
   if err != nil {
     t.Error("Bad GetBool")
   }
-  _, err = entity.GetInt("int")
+  _, err = team.GetTime("time")
+  if err != nil {
+    t.Error("Bad GetTime")
+  }
+  _, err = team.GetInt("int")
   if err != nil {
     t.Error("Bad GetInt")
   }
-  _, err = entity.GetInt8("int8")
+  _, err = team.GetInt8("int8")
   if err != nil {
     t.Error("Bad GetInt8")
   }
-  _, err = entity.GetInt16("int16")
+  _, err = team.GetInt16("int16")
   if err != nil {
     t.Error("Bad GetInt16")
   }
-  _, err = entity.GetInt32("int32")
+  _, err = team.GetInt32("int32")
   if err != nil {
     t.Error("Bad GetInt32")
   }
-  _, err = entity.GetInt64("int64")
+  _, err = team.GetInt64("int64")
   if err != nil {
     t.Error("Bad GetInt64")
   }
-  _, err = entity.GetUint("uint")
+  _, err = team.GetUint("uint")
   if err != nil {
     t.Error("Bad GetUint")
   }
-  _, err = entity.GetUint8("uint8")
+  _, err = team.GetUint8("uint8")
   if err != nil {
     t.Error("Bad GetUint8")
   }
-  _, err = entity.GetUint16("uint16")
+  _, err = team.GetUint16("uint16")
   if err != nil {
     t.Error("Bad GetUint16")
   }
-  _, err = entity.GetUint32("uint32")
+  _, err = team.GetUint32("uint32")
   if err != nil {
     t.Error("Bad GetUint32")
   }
-  _, err = entity.GetUint64("uint64")
+  _, err = team.GetUint64("uint64")
   if err != nil {
     t.Error("Bad GetUint64")
   }
-  _, err = entity.GetFloat32("float32")
+  _, err = team.GetFloat32("float32")
   if err != nil {
     t.Error("Bad GetFloat32")
   }
-  _, err = entity.GetFloat64("float64")
+  _, err = team.GetFloat64("float64")
   if err != nil {
     t.Error("Bad GetFloat64")
   }
-  _, err = entity.GetComplex64("complex64")
+  _, err = team.GetComplex64("complex64")
   if err != nil {
     t.Error("Bad GetComplex64")
   }
-  _, err = entity.GetComplex128("complex128")
+  _, err = team.GetComplex128("complex128")
   if err != nil {
     t.Error("Bad GetComplex128")
   }
-  _, err = entity.GetArray("array")
+  _, err = team.GetArray("array")
   if err != nil {
     t.Error("Bad GetArray")
   }
-  _, err = entity.GetArrayMap("array-map")
+  _, err = team.GetArrayMap("array-map")
   if err != nil {
     t.Error("Bad GetArrayMap")
   }
-  _, err = entity.GetArrayBool("array-bool")
+  _, err = team.GetArrayBool("array-bool")
   if err != nil {
     t.Error("Bad GetArrayBool")
   }
-  _, err = entity.GetArrayInt("array-int")
+  _, err = team.GetArrayInt("array-int")
   if err != nil {
     t.Error("Bad GetArrayInt")
   }
-  _, err = entity.GetArrayInt8("array-int8")
+  _, err = team.GetArrayInt8("array-int8")
   if err != nil {
     t.Error("Bad GetArrayInt8")
   }
-  _, err = entity.GetArrayInt16("array-int16")
+  _, err = team.GetArrayInt16("array-int16")
   if err != nil {
     t.Error("Bad GetArrayInt16")
   }
-  _, err = entity.GetArrayInt32("array-int32")
+  _, err = team.GetArrayInt32("array-int32")
   if err != nil {
     t.Error("Bad GetArrayInt32")
   }
-  _, err = entity.GetArrayInt64("array-int64")
+  _, err = team.GetArrayInt64("array-int64")
   if err != nil {
     t.Error("Bad GetArrayInt64")
   }
-  _, err = entity.GetArrayUint("array-uint")
+  _, err = team.GetArrayUint("array-uint")
   if err != nil {
     t.Error("Bad GetArrayUint")
   }
-  _, err = entity.GetArrayUint8("array-uint8")
+  _, err = team.GetArrayUint8("array-uint8")
   if err != nil {
     t.Error("Bad GetArrayUint8")
   }
-  _, err = entity.GetArrayUint16("array-uint16")
+  _, err = team.GetArrayUint16("array-uint16")
   if err != nil {
     t.Error("Bad GetArrayUint16")
   }
-  _, err = entity.GetArrayUint32("array-uint32")
+  _, err = team.GetArrayUint32("array-uint32")
   if err != nil {
     t.Error("Bad GetArrayUint32")
   }
-  _, err = entity.GetArrayUint64("array-uint64")
+  _, err = team.GetArrayUint64("array-uint64")
   if err != nil {
     t.Error("Bad GetArrayUint64")
   }
-  _, err = entity.GetArrayFloat32("array-float32")
+  _, err = team.GetArrayFloat32("array-float32")
   if err != nil {
     t.Error("Bad GetArrayFloat32")
   }
-  _, err = entity.GetArrayFloat64("array-float64")
+  _, err = team.GetArrayFloat64("array-float64")
   if err != nil {
     t.Error("Bad GetArrayFloat64")
   }
-  _, err = entity.GetArrayComplex64("array-complex64")
+  _, err = team.GetArrayComplex64("array-complex64")
   if err != nil {
     t.Error("Bad GetArrayComplex64")
   }
-  _, err = entity.GetArrayComplex128("array-complex128")
+  _, err = team.GetArrayComplex128("array-complex128")
   if err != nil {
     t.Error("Bad GetArrayComplex128")
+  }
+  _ = team.Set("name", "One Team")
+  name , _ = team.GetString("name")
+  if name != "One Team" {
+    t.Error("Can not set field")
   }
 }
 
 func BenchmarkAll(b *testing.B) {
-  entity := entity.NewEntity(&data)
+  team := entity.NewEntity(&data)
   for i := 0; i < b.N; i++ {
-    _, _ = entity.GetString("comments[1].author.name")
+    _, _ = team.GetString("members[1].name")
   }
 }

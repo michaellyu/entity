@@ -20,28 +20,37 @@ import (
 
 func main() {
   var data interface{} = map[string]interface{} {
-    "author": map[string]interface{} {
-      "id": 1,
-      "name": "Coral",
-      "children": [] int { 1, 2, 3 },
+    "name": "Team",
+    "city": map[string]interface{} {
+      "name": "Tianjin",
+    },
+    "members": []interface{} {
+      map[string]interface{} {
+        "name": "Coral",
+      },
+      map[string]interface{} {
+        "name": "Jack",
+      },
+      map[string]interface{} {
+        "name": "Xinxing",
+      },
     },
   }
-  entity := entity.NewEntity(&data)
-  authorName, err := entity.GetString("author.name")
-  if err != nil {
-    fmt.Println("author.name not found")
-  }
-  fmt.Println("author.name:", authorName)
-  firstChild, err := entity.GetInt("author.children[0]")
-  if err != nil {
-    fmt.Println("author.children[0] not found")
-  }
-  fmt.Println("author.children[0]:", firstChild)
-  children, err := entity.GetArrayInt("author.children")
-  if err != nil {
-    fmt.Println("author.children not found")
-  }
-  fmt.Println("author.children:", children)
+  // get a interface{}
+  name, err := team.Get("name")
+  fmt.Println(name, err)
+  // get a string
+  cityName, _ := team.GetString("city.name")
+  fmt.Println(cityName)
+  // get a map
+  firstMember, _ := team.GetMap("members[0]")
+  fmt.Println(firstMember)
+  // get a array
+  members, _ := team.GetArray("members")
+  fmt.Println(members)
+  // set a field
+  err = team.Set("name", "One Team")
+  fmt.Println(err)
 }
 ```
 
