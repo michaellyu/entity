@@ -1,5 +1,12 @@
 Entity
 ========
+[![Go Report Card][go-report-image]][go-report-url]
+[![GoDoc][godoc-image]][godoc-url]
+
+[go-report-image]: https://goreportcard.com/badge/github.com/michaellyu/entity
+[go-report-url]: https://goreportcard.com/report/github.com/michaellyu/entity
+[godoc-image]: https://godoc.org/github.com/michaellyu/entity/lint?status.svg
+[godoc-url]: https://godoc.org/github.com/michaellyu/entity
 
 Shortcut to access interfaces.
 
