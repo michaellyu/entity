@@ -43,7 +43,7 @@ func main() {
       },
     },
   }
-  // get a interface{}
+  // get an interface{}
   name, err := team.Get("name")
   fmt.Println(name, err)
   // get a string
