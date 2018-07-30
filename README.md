@@ -52,7 +52,7 @@ func main() {
   // get a map
   firstMember, _ := team.GetMap("members[0]")
   fmt.Println(firstMember)
-  // get a array
+  // get an array
   members, _ := team.GetArray("members")
   fmt.Println(members)
   // set a field
