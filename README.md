@@ -43,6 +43,8 @@ func main() {
       },
     },
   }
+  // new entity
+  team := entity.NewEntity(&data)
   // get an interface{}
   name, err := team.Get("name")
   fmt.Println(name, err)
